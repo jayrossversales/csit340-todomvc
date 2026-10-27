@@ -41,6 +41,17 @@ function Todos() {
     setTodos(todos.filter((todo) => !todo.completed))
     }
 
+    function handleToggleAll() {
+    const allCompleted = todos.every((todo) => todo.completed)
+
+    setTodos(
+        todos.map((todo) => ({
+        ...todo,
+        completed: !allCompleted,
+        }))
+    )
+    }
+
   return (
     <section className="mx-auto max-w-[550px]">
       <h1 className="text-center text-[80px] font-extralight text-[#b83f45]">
@@ -57,8 +68,14 @@ function Todos() {
         </form>
         {todos.length > 0 && (
         <>
-        <main className="relative border-t border-[#e6e6e6]">
-          <input id="toggle-all" type="checkbox" className="peer sr-only" />
+        <main className="relative border-t border-[#e6e6e6]">       
+        <input
+        id="toggle-all"
+        type="checkbox"
+        checked={todos.length > 0 && todos.every((todo) => todo.completed)}
+        onChange={handleToggleAll}
+        className="peer sr-only"
+        />
           <label
             htmlFor="toggle-all"
             className="absolute -top-[66px] left-0 flex h-[65px] w-[60px] cursor-pointer items-center justify-center text-[22px] text-[#949494] peer-checked:text-[#484848]"
